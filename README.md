@@ -7,7 +7,7 @@ Asynchronous Telegram bot for productivity: Weather &amp; Pomodoro &amp; Timer.
 ## Tech Stack
 * Python 3.12
 * Aiogram 3.24 (Telegram Bot framework)
-* Requests
+* Requests (To get weather from wttr.in)
 * Asyncio
 ## Installation
 1. **Clone the repository:**  
