@@ -12,7 +12,7 @@ Asynchronous Telegram bot for productivity: Weather &amp; Pomodoro &amp; Timer.
 ## Installation
 1. **Clone the repository:**  
 ``` bash
-git clone <https://github.com/KG1303/orginizer_bot> [<directory-name>]
+git clone <https://github.com/KG1303/orginizer_bot.git> [<directory-name>]
 cd directory-name
 ```
 2. **Set up virtual environment:**
