@@ -44,6 +44,37 @@ async def weather(message: Message):
     elif response <= -12:
         await message.answer("It's below -11°C outside, dress warmly")
 
+class WeatherStates(StatesGroup):
+    waiting_for_city = State()
+
+@dp.message(Command("weather_city"))
+async def weather_city(message: Message, state: FSMContext):
+    await message.answer("Please enter a city name")
+    await state.set_state(WeatherStates.waiting_for_city)
+
+@dp.message(WeatherStates.waiting_for_city)
+async def get_weather_by_city(message: Message, state: FSMContext):
+    city = message.text
+    response = requests.get(f"https://wttr.in/{city}?format=%f")
+    response = int(response.text[:-2])
+    photo_url = f"https://wttr.in/{city}_M.png"
+    photo = URLInputFile(photo_url, filename="weather.png")
+    await message.answer_photo(
+        photo=photo, caption=f"Weather in {city}", parse_mode="HTML"
+    )
+    if response >= 13:
+        await message.answer("Wear a t-shirt and shorts/light pants")
+    elif response < 13 and response > 5:
+        await message.answer("Wear a sweatshirt/jacket and light pants/trousers")
+    elif response <= 5 and response > -1:
+        await message.answer("Wear a jacket/coat and pants")
+    elif response <= -1 and response > -7:
+        await message.answer("Wear a coat and (warm) pants")
+    elif response <= -7 and response > -12:
+        await message.answer("Wear a coat and warm pants")
+    elif response <= -12:
+        await message.answer("It's below -11°C outside, dress warmly")
+
 class TimerStates(StatesGroup):
     waiting_for_time = State()
 
